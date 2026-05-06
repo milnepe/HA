@@ -1,3 +1,4 @@
+#include <limits.h>
 #include <WiFiNINA.h>
 #include <PubSubClient.h>
 #include <OneWire.h>
