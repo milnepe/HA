@@ -10,15 +10,16 @@
 // ================= MQTT =================
 #define MQTT_SERVER   "192.168.1.60"
 #define MQTT_PORT     1883
-//#define MQTT_CLIENT_ID "nano33"
-//#define MQTT_TOPIC    "house/bedroom-master/temp"
+#define MQTT_CLIENT_ID "nano33"
+#define MQTT_TOPIC    "house/bedroom-master/temp"
 //#define MQTT_CLIENT_ID "mkr1010-00"
 //#define MQTT_TOPIC    "house/hall/temp"
-#define MQTT_CLIENT_ID "mkr1010-01"
-#define MQTT_TOPIC    "house/lounge/temp"
+// #define MQTT_CLIENT_ID "mkr1010-01"
+// #define MQTT_TOPIC    "house/lounge/temp"
 
 // ================= SENSOR =================
 #define ONE_WIRE_BUS 7
+#define HYSTERESIS_THRESHOLD 10  // centidegrees (0.10 °C)
 
 // ================= LED (board-detected) =================
 #if defined(ARDUINO_SAMD_MKRWIFI1010)

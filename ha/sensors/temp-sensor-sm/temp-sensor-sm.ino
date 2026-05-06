@@ -148,6 +148,14 @@ void connectMQTT() {
 }
 
 // ================= SENSOR =================
+int stabilise(int raw) {
+  static int last = INT_MIN;
+  if (last == INT_MIN || abs(raw - last) >= HYSTERESIS_THRESHOLD) {
+    last = raw;
+  }
+  return last;
+}
+
 void readTemperature() {
   unsigned long now = millis();
 
@@ -172,7 +180,7 @@ void readTemperature() {
 #endif
 
     if (mqttConnected()) {
-      int value = (int)(temp * 100);
+      int value = stabilise((int)(temp * 100));
       char payload[8];
       snprintf(payload, sizeof(payload), "%d", value);
       bool ok = mqttClient.publish(MQTT_TOPIC, payload);
