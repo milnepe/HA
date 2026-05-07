@@ -225,6 +225,12 @@ void setup() {
 #endif
 
   buildMqttIds();
+  Serial.print("Firmware: ");
+  Serial.println(FIRMWARE_VERSION);
+  Serial.print("Client:   ");
+  Serial.println(mqttClientId);
+  Serial.print("Topic:    ");
+  Serial.println(mqttTopic);
   sensors.begin();
   sensors.setResolution(SENSOR_RESOLUTION);
   sensors.setWaitForConversion(false);

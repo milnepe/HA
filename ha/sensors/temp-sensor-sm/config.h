@@ -1,5 +1,8 @@
 #pragma once
 
+// ================= VERSION =================
+#define FIRMWARE_VERSION "1.0.0"
+
 // ================= FEATURE FLAGS =================
 #define DEBUG_SERIAL true  // true = print temp readings to Serial
 
