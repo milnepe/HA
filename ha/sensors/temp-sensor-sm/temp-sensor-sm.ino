@@ -215,6 +215,7 @@ void buildMqttIds() {
 
 void setup() {
   Serial.begin(115200);
+  while (!Serial && millis() < 3000);  // wait for USB serial, max 3s
 
 #if USE_RGB_LED
   WiFiDrv::pinMode(LED_R_PIN, OUTPUT);
@@ -231,7 +232,7 @@ void setup() {
   Serial.println(mqttClientId);
   Serial.print("Topic:    ");
   Serial.println(mqttTopic);
-  delay(2000);
+  delay(5000);
   sensors.begin();
   sensors.setResolution(SENSOR_RESOLUTION);
   sensors.setWaitForConversion(false);
