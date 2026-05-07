@@ -14,6 +14,9 @@
 WiFiClient wifiClient;
 PubSubClient mqttClient(wifiClient);
 
+char mqttClientId[13];  // "aabbccddeeff"
+char mqttTopic[64];
+
 OneWire oneWire(ONE_WIRE_BUS);
 DallasTemperature sensors(&oneWire);
 
@@ -145,7 +148,7 @@ void connectMQTT() {
   lastMqttAttempt = now;
 
   mqttClient.setServer(MQTT_SERVER, MQTT_PORT);
-  mqttClient.connect(MQTT_CLIENT_ID);
+  mqttClient.connect(mqttClientId);
 }
 
 // ================= SENSOR =================
@@ -184,11 +187,11 @@ void readTemperature() {
       int value = stabilise((int)(temp * 100));
       char payload[8];
       snprintf(payload, sizeof(payload), "%d", value);
-      bool ok = mqttClient.publish(MQTT_TOPIC, payload);
+      bool ok = mqttClient.publish(mqttTopic, payload);
 #if DEBUG_SERIAL
       Serial.print(ok ? "MQTT sent" : "MQTT failed");
       Serial.print(": ");
-      Serial.print(MQTT_TOPIC);
+      Serial.print(mqttTopic);
       Serial.print(" = ");
       Serial.println(value);
 #endif
@@ -202,6 +205,14 @@ void readTemperature() {
 }
 
 // ================= SETUP =================
+void buildMqttIds() {
+  byte mac[6];
+  WiFi.macAddress(mac);
+  snprintf(mqttClientId, sizeof(mqttClientId), "%02x%02x%02x%02x%02x%02x",
+           mac[5], mac[4], mac[3], mac[2], mac[1], mac[0]);
+  snprintf(mqttTopic, sizeof(mqttTopic), "%s/%s", MQTT_TOPIC_BASE, mqttClientId);
+}
+
 void setup() {
   Serial.begin(115200);
 
@@ -213,6 +224,7 @@ void setup() {
   pinMode(LED_PIN, OUTPUT);
 #endif
 
+  buildMqttIds();
   sensors.begin();
   sensors.setResolution(SENSOR_RESOLUTION);
   sensors.setWaitForConversion(false);
