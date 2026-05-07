@@ -14,7 +14,7 @@
 
 // ================= SENSOR =================
 #define ONE_WIRE_BUS 7
-#define HYSTERESIS_THRESHOLD 10  // centidegrees (0.10 °C)
+#define HYSTERESIS_THRESHOLD 75  // centidegrees — suppresses single-step oscillation at 9-bit
 
 // ================= LED (board-detected) =================
 #if defined(ARDUINO_SAMD_MKRWIFI1010)
