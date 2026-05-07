@@ -32,7 +32,7 @@
 // ================= TIMING =================
 #define WIFI_RETRY_INTERVAL   5000
 #define MQTT_RETRY_INTERVAL   5000
-#define TEMP_INTERVAL         10000
+#define TEMP_INTERVAL         60000
 #define SENSOR_RESOLUTION     9
 #define SENSOR_DELAY          (94 << (SENSOR_RESOLUTION - 9))  // 9=94ms 10=188ms 11=376ms 12=752ms
 
