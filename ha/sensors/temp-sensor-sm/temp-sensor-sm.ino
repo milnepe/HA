@@ -231,6 +231,7 @@ void setup() {
   Serial.println(mqttClientId);
   Serial.print("Topic:    ");
   Serial.println(mqttTopic);
+  delay(2000);
   sensors.begin();
   sensors.setResolution(SENSOR_RESOLUTION);
   sensors.setWaitForConversion(false);
